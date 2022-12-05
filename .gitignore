@@ -25,8 +25,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+.eslintcache
+
 # local env files
-.env*.local
+# .env*.local
 
 # vercel
 .vercel
