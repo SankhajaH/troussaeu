@@ -1,9 +1,29 @@
 import React from 'react'
 import Button from '../components/common/Button'
+import {auth} from '../lib/firebase'
+import {useSignInWithGoogle} from 'react-firebase-hooks/auth'
+import {useRouter} from 'next/router'
 
 type Props = {}
 
 const GetStarted = (props: Props) => {
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth)
+  const router = useRouter()
+  const {continueUrl = '/'} = router.query
+  if (error) {
+    return (
+      <div>
+        <p>Error: {error.message}</p>
+      </div>
+    )
+  }
+  if (loading) {
+    return <p>Loading</p>
+  }
+  if (user) {
+    router.push(`${continueUrl}`)
+  }
+
   return (
     <div>
       <div className='flex flex-col mx-auto py-36'>
@@ -16,7 +36,7 @@ const GetStarted = (props: Props) => {
         </div>
       </div>
       <div className='px-8 pt-36 flex justify-center'>
-        <Button variant='primary' fullWidth>
+        <Button variant='primary' fullWidth onClick={() => signInWithGoogle()}>
           Get started
         </Button>
       </div>

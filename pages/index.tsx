@@ -2,6 +2,7 @@ import React from 'react'
 import Footer from '../components/common/Footer'
 import Header from '../components/common/Header'
 import LocationCard from '../components/common/Location-card'
+import withProtected from '../hooks/withProtected'
 
 type Props = {}
 
@@ -22,4 +23,4 @@ const Dashboard = (props: Props) => {
   )
 }
 
-export default Dashboard
+export default withProtected(Dashboard)
