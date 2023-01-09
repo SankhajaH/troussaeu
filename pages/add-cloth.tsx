@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
+import AddButton from '../components/common/AddButton'
 import ClothTypeCard from '../components/common/Cloth-Type'
-import Footer from '../components/common/Footer'
 import Header from '../components/common/Header'
 
 type Props = {}
 
 const AddClothType = (props: Props) => {
+  const [openModal, setOpenModal] = useState<Boolean>(false)
   return (
     <div>
       <Header />
@@ -15,9 +16,13 @@ const AddClothType = (props: Props) => {
           <ClothTypeCard />
         </div>
       </div>
-      <footer className='fixed bottom-0 left-0 right-0'>
-        <Footer />
-      </footer>
+      <div className='fixed bottom-0 left-0 right-0'>
+        <div className='bg-indigo-main'>
+          <div className='flex justify-center relative bottom-4'>
+            <AddButton onClick={() => setOpenModal(true)} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

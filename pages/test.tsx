@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from 'react'
 import Button from '../components/common/Button'
-import Modal from '../components/common/modals/Modal'
+import LocationsModal from '../components/common/modals/Locations-Modal'
 
 type Props = {}
 
@@ -12,7 +12,7 @@ const Test = (props: Props) => {
       <Button variant='primary' onClick={() => setOpenModal(true)}>
         Open
       </Button>
-      {openModal && <Modal onClose={setOpenModal} />}
+      {openModal && <LocationsModal onClose={setOpenModal} />}
     </div>
   )
 }
