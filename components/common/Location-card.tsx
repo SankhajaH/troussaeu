@@ -1,25 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 import React from 'react'
 
-type Props = {}
+type Props = {
+  location: string
+  imageUrl: string
+}
 
-const LocationCard = (props: Props) => {
+const LocationCard = ({location, imageUrl}: Props) => {
   const myLoader = ({src, width, quality}: any) => {
     return `https://cdn.pixabay.com/${src}?w=${width}&q=${quality || 75}`
   }
   return (
     <div className='w-80'>
-      <Image
-        loader={myLoader}
-        src='photo/2022/11/30/13/16/tel-aviv-7626789__340.jpg'
-        alt='Location image'
-        width={320}
-        height={320}
-        className='rounded-t-md'
+      {/* @ts-ignore */}
+      <img
+        className='h-320 w-320 md:h-28 md:w-28 object-cover rounded-t-md'
+        src={imageUrl}
+        alt='location image'
       />
       <div className='bg-indigo-main rounded-b-md'>
         <p className='flex justify-center py-1 font-semibold text-grey-light'>
-          Boarding
+          {location}
         </p>
       </div>
     </div>

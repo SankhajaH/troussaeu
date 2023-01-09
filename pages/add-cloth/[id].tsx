@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import AddButton from '../components/common/AddButton'
-import ClothTypeCard from '../components/common/Cloth-Type'
-import Header from '../components/common/Header'
+import AddButton from '../../components/common/AddButton'
+import ClothTypeCard from '../../components/common/Cloth-Type'
+import Header from '../../components/common/Header'
 
 type Props = {}
 
@@ -19,7 +19,9 @@ const AddClothType = (props: Props) => {
       <div className='fixed bottom-0 left-0 right-0'>
         <div className='bg-indigo-main'>
           <div className='flex justify-center relative bottom-4'>
-            <AddButton onClick={() => setOpenModal(true)} />
+            <button onClick={() => setOpenModal(true)}>
+              <AddButton />
+            </button>
           </div>
         </div>
       </div>

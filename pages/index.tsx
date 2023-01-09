@@ -1,3 +1,4 @@
+import {useRouter} from 'next/router'
 import React, {useEffect, useState} from 'react'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import AddButton from '../components/common/AddButton'
@@ -17,6 +18,7 @@ const Dashboard = (props: Props) => {
   console.log('this is the user', user)
   const {locations, loading, error} = useGetLocations(user?.uid)
   const [openModal, setOpenModal] = useState<Boolean>(false)
+  const router = useRouter()
 
   if (error) {
     return (
@@ -26,7 +28,11 @@ const Dashboard = (props: Props) => {
     )
   }
   if (loading) {
-    return <Loader />
+    return (
+      <div>
+        <Loader />
+      </div>
+    )
   }
 
   return (
@@ -46,7 +52,19 @@ const Dashboard = (props: Props) => {
           </div>
         ) : (
           <div>
-            <LocationCard />
+            {locations &&
+              locations?.length > 0 &&
+              locations.map((location, i) => (
+                <div
+                  key={i}
+                  onClick={() => router.replace(`/add-cloth/${location?.id}`)}
+                >
+                  <LocationCard
+                    location={location?.location_name}
+                    imageUrl={location?.image_url}
+                  />
+                </div>
+              ))}
           </div>
         )}
       </div>

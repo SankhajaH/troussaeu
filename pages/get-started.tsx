@@ -3,6 +3,7 @@ import Button from '../components/common/Button'
 import {auth} from '../lib/firebase'
 import {useSignInWithGoogle} from 'react-firebase-hooks/auth'
 import {useRouter} from 'next/router'
+import Loader from '../components/common/Loader'
 
 type Props = {}
 
@@ -18,7 +19,11 @@ const GetStarted = (props: Props) => {
     )
   }
   if (loading) {
-    return <p>Loading</p>
+    return (
+      <div>
+        <Loader />
+      </div>
+    )
   }
   if (user) {
     router.push(`${continueUrl}`)
