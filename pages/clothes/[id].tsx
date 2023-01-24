@@ -1,19 +1,19 @@
 import {useRouter} from 'next/router'
 import React, {useState} from 'react'
 import AddButton from '../../components/common/AddButton'
-import ClothTypeCard from '../../components/common/Cloth-Type'
+import ClothesCard from '../../components/common/Clothes-Card'
 import Header from '../../components/common/Header'
 import Loader from '../../components/common/Loader'
-import ClothTypesModal from '../../components/common/modals/Cloth-Type-Modal'
-import useGetClothTypes from '../../hooks/cloth-types/useGetClothTypes'
+import ClothesModal from '../../components/common/modals/Clothes-Modal'
+import useGetClothes from '../../hooks/clothes/useGetClothes'
 
 type Props = {}
 
-const AddClothType = (props: Props) => {
+const Clothes = (props: Props) => {
   const [openModal, setOpenModal] = useState<Boolean>(false)
   const router = useRouter()
   const {id} = router.query
-  const {cloth_types, loading, error} = useGetClothTypes(id)
+  const {clothes, error, loading} = useGetClothes(id)
 
   if (error) {
     return (
@@ -34,30 +34,27 @@ const AddClothType = (props: Props) => {
     <div>
       <Header />
       <div>
-        <p className='font-light text-grey-light text-lg mb-2'>Cloth types</p>
-        {cloth_types?.length === 0 ? (
+        <p className='font-light text-grey-light text-lg mb-2'>T-Shirts</p>
+        {clothes?.length === 0 ? (
           <div className='grid h-screen place-items-center'>
             <div className='text-grey-light flex flex-col justify-center opacity-40'>
               <p className='flex justify-center'>
                 Looks like you have not added any
               </p>
-              <p className='flex justify-center'> cloth types.</p>
+              <p className='flex justify-center'> clothes.</p>
               <p className='flex justify-center'>Let&apos;s add one.</p>
             </div>
           </div>
         ) : (
           <div>
-            {cloth_types &&
-              cloth_types?.length > 0 &&
-              cloth_types.map((cloth, i) => (
+            {clothes &&
+              clothes?.length > 0 &&
+              clothes.map((cloth, i) => (
                 <div
                   key={i}
                   onClick={() => router.replace(`/clothes/${cloth?.id}`)}
                 >
-                  <ClothTypeCard
-                    cloth_type={cloth?.type}
-                    imageUrl={cloth?.image_url}
-                  />
+                  <ClothesCard imageUrl={cloth?.image_url} />
                 </div>
               ))}
           </div>
@@ -73,10 +70,10 @@ const AddClothType = (props: Props) => {
         </div>
       </div>
       {openModal && id && (
-        <ClothTypesModal onClose={setOpenModal} location_id={id} />
+        <ClothesModal onClose={setOpenModal} cloth_type_id={id} />
       )}
     </div>
   )
 }
 
-export default AddClothType
+export default Clothes

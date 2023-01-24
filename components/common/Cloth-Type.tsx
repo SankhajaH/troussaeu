@@ -1,27 +1,25 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 import React from 'react'
 
-type Props = {}
+type Props = {
+  cloth_type: string
+  imageUrl: string
+}
 
-const ClothTypeCard = (props: Props) => {
-  const myLoader = ({src, width, quality}: any) => {
-    return `https://cdn.pixabay.com/${src}?w=${width}&q=${quality || 75}`
-  }
+const ClothTypeCard = ({cloth_type, imageUrl}: Props) => {
   return (
-    <div className='w-80'>
-      <Image
-        loader={myLoader}
-        src='photo/2022/11/30/13/16/tel-aviv-7626789__340.jpg'
-        alt='Location image'
-        width={320}
-        height={320}
-        className='rounded-t-md'
+    <div className='w-80 py-4'>
+      {/* @ts-ignore */}
+      <img
+        className='h-320 w-320 md:h-28 md:w-28 object-cover rounded-t-md'
+        src={imageUrl}
+        alt='cloth type image'
       />
       <div className='bg-indigo-main rounded-b-md'>
-        <div className='flex flex-row justify-between mx-2'>
-          <p className='py-1 font-semibold text-grey-light'>T-Shirts</p>
-          <p className='py-1 font-semibold text-grey-light'>4</p>
-        </div>
+        <p className='flex justify-center py-1 font-semibold text-grey-light'>
+          {cloth_type}
+        </p>
       </div>
     </div>
   )

@@ -8,9 +8,6 @@ type Props = {
 }
 
 const LocationCard = ({location, imageUrl}: Props) => {
-  const myLoader = ({src, width, quality}: any) => {
-    return `https://cdn.pixabay.com/${src}?w=${width}&q=${quality || 75}`
-  }
   return (
     <div className='w-80'>
       {/* @ts-ignore */}

@@ -13,30 +13,31 @@ import {mutate} from 'swr'
 
 type Props = {
   onClose: any
+  location_id: any
 }
 
-const LocationsModal = ({onClose}: Props) => {
+const ClothTypesModal = ({onClose, location_id}: Props) => {
   const [user] = useAuthState(auth)
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async (data: any) => {
     setLoading(true)
-    const collectionRef = collection(db, 'locations')
+    const collectionRef = collection(db, 'cloth-types')
     const docRef = doc(collectionRef)
-    const storageRef = ref(storage, `locations/${docRef.id}`)
+    const storageRef = ref(storage, `cloth-types/${docRef.id}`)
 
     uploadBytes(storageRef, data.file[0]).then(async (snapshot) => {
       const imageUrl = await getDownloadURL(snapshot.ref)
       await setDoc(docRef, {
-        location_name: data.name,
-        uid: user?.uid,
+        type: data.type,
+        location_id: location_id,
         image_url: imageUrl,
       }).catch((error) => {
         throw error
       })
-      mutate('locations')
       setLoading(false)
       onClose(false)
+      mutate('clothes')
     })
   }
   return (
@@ -46,13 +47,13 @@ const LocationsModal = ({onClose}: Props) => {
           <GiCancel onClick={() => onClose(false)} />
         </div>
         <div className='text-lg text-black-main flex justify-center font-semibold'>
-          Add Locations
+          Add Cloth Type
         </div>
         <Form onSubmit={onSubmit} className='p-2'>
           <Input
             wrapperStyles='mb-4'
-            label='Name'
-            name='name'
+            label='Type'
+            name='type'
             required
             variant='dark'
             registerOptions={{required: '*Required'}}
@@ -77,4 +78,4 @@ const LocationsModal = ({onClose}: Props) => {
   )
 }
 
-export default LocationsModal
+export default ClothTypesModal
