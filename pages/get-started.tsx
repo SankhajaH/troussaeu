@@ -20,7 +20,7 @@ const GetStarted = (props: Props) => {
   }
   if (loading) {
     return (
-      <div>
+      <div className='grid h-screen place-items-center'>
         <Loader />
       </div>
     )

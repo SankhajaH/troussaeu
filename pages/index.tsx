@@ -15,7 +15,7 @@ type Props = {}
 
 const Dashboard = (props: Props) => {
   const [user] = useAuthState(auth)
-  console.log('this is the user', user)
+  // console.log('this is the user', user)
   const {locations, loading, error} = useGetLocations(user?.uid)
   const [openModal, setOpenModal] = useState<Boolean>(false)
   const router = useRouter()
@@ -29,7 +29,7 @@ const Dashboard = (props: Props) => {
   }
   if (loading) {
     return (
-      <div>
+      <div className='grid h-screen place-items-center'>
         <Loader />
       </div>
     )
@@ -57,7 +57,7 @@ const Dashboard = (props: Props) => {
               locations.map((location, i) => (
                 <div
                   key={i}
-                  onClick={() => router.replace(`/add-cloth/${location?.id}`)}
+                  onClick={() => router.push(`/add-cloth/${location?.id}`)}
                 >
                   <LocationCard
                     location={location?.location_name}

@@ -6,6 +6,7 @@ import Header from '../../components/common/Header'
 import Loader from '../../components/common/Loader'
 import ClothesModal from '../../components/common/modals/Clothes-Modal'
 import useGetClothes from '../../hooks/clothes/useGetClothes'
+import {BiArrowBack} from 'react-icons/bi'
 
 type Props = {}
 
@@ -24,7 +25,7 @@ const Clothes = (props: Props) => {
   }
   if (loading) {
     return (
-      <div>
+      <div className='grid h-screen place-items-center'>
         <Loader />
       </div>
     )
@@ -34,7 +35,12 @@ const Clothes = (props: Props) => {
     <div>
       <Header />
       <div>
-        <p className='font-light text-grey-light text-lg mb-2'>T-Shirts</p>
+        <p className='font-light text-grey-light text-lg mb-2'>Clothes</p>
+        <div className='text-grey-light'>
+          <button onClick={() => router.back()}>
+            <BiArrowBack />
+          </button>
+        </div>
         {clothes?.length === 0 ? (
           <div className='grid h-screen place-items-center'>
             <div className='text-grey-light flex flex-col justify-center opacity-40'>
@@ -50,11 +56,8 @@ const Clothes = (props: Props) => {
             {clothes &&
               clothes?.length > 0 &&
               clothes.map((cloth, i) => (
-                <div
-                  key={i}
-                  onClick={() => router.replace(`/clothes/${cloth?.id}`)}
-                >
-                  <ClothesCard imageUrl={cloth?.image_url} />
+                <div key={i}>
+                  <ClothesCard imageUrl={cloth?.image_url} id={cloth?.id} />
                 </div>
               ))}
           </div>

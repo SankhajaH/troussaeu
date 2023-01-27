@@ -1,5 +1,6 @@
 import {useRouter} from 'next/router'
 import React, {useState} from 'react'
+import {BiArrowBack} from 'react-icons/bi'
 import AddButton from '../../components/common/AddButton'
 import ClothTypeCard from '../../components/common/Cloth-Type'
 import Header from '../../components/common/Header'
@@ -24,7 +25,7 @@ const AddClothType = (props: Props) => {
   }
   if (loading) {
     return (
-      <div>
+      <div className='grid h-screen place-items-center'>
         <Loader />
       </div>
     )
@@ -35,6 +36,11 @@ const AddClothType = (props: Props) => {
       <Header />
       <div>
         <p className='font-light text-grey-light text-lg mb-2'>Cloth types</p>
+        <div className='text-grey-light'>
+          <button onClick={() => router.back()}>
+            <BiArrowBack />
+          </button>
+        </div>
         {cloth_types?.length === 0 ? (
           <div className='grid h-screen place-items-center'>
             <div className='text-grey-light flex flex-col justify-center opacity-40'>
@@ -52,7 +58,7 @@ const AddClothType = (props: Props) => {
               cloth_types.map((cloth, i) => (
                 <div
                   key={i}
-                  onClick={() => router.replace(`/clothes/${cloth?.id}`)}
+                  onClick={() => router.push(`/clothes/${cloth?.id}`)}
                 >
                   <ClothTypeCard
                     cloth_type={cloth?.type}
