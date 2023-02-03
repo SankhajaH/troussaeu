@@ -8,6 +8,7 @@ import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth, db, storage} from '../../../lib/firebase'
 import {collection, doc, setDoc} from 'firebase/firestore'
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
+import {useSWRConfig} from 'swr'
 
 type Props = {
   onClose: any
@@ -16,6 +17,7 @@ type Props = {
 const LocationsModal = ({onClose}: Props) => {
   const [user] = useAuthState(auth)
   const [loading, setLoading] = useState(false)
+  const {mutate} = useSWRConfig()
 
   const onSubmit = async (data: any) => {
     setLoading(true)
@@ -33,6 +35,7 @@ const LocationsModal = ({onClose}: Props) => {
         throw error
       })
       setLoading(false)
+      mutate('locations')
       onClose(false)
     })
   }
