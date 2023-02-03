@@ -39,8 +39,8 @@ const LocationCard = ({location, imageUrl, id}: Props) => {
                 <RiDeleteBin2Line />
               </button>
             ) : (
-              <button onClick={() => handleDelete()}>
-                <RiDeleteBin2Line />
+              <button>
+                <RiDeleteBin2Line onClick={() => handleDelete()} />
               </button>
             )}
           </div>

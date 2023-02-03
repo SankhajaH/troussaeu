@@ -35,7 +35,7 @@ const LocationsModal = ({onClose}: Props) => {
         throw error
       })
       setLoading(false)
-      mutate('locations')
+      mutate('locations', true)
       onClose(false)
     })
   }
