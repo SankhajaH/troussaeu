@@ -61,6 +61,7 @@ const AddClothType = (props: Props) => {
                   onClick={() => router.push(`/clothes/${cloth?.id}`)}
                 >
                   <ClothTypeCard
+                    id={cloth?.id}
                     cloth_type={cloth?.type}
                     imageUrl={cloth?.image_url}
                   />

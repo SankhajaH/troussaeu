@@ -43,11 +43,11 @@ const Dashboard = (props: Props) => {
         {locations?.length === 0 ? (
           <div className='grid h-screen place-items-center'>
             <div className='text-grey-light flex flex-col justify-center opacity-40'>
-              <p className='flex justify-center'>
+              <div className='flex justify-center'>
                 Looks like you have not added any
-              </p>
-              <p className='flex justify-center'> locations.</p>
-              <p className='flex justify-center'>Let&apos;s add one.</p>
+              </div>
+              <div className='flex justify-center'> locations.</div>
+              <div className='flex justify-center'>Let&apos;s add one.</div>
             </div>
           </div>
         ) : (
@@ -60,6 +60,7 @@ const Dashboard = (props: Props) => {
                   onClick={() => router.push(`/add-cloth/${location?.id}`)}
                 >
                   <LocationCard
+                    id={location?.id}
                     location={location?.location_name}
                     imageUrl={location?.image_url}
                   />

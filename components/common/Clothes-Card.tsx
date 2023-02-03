@@ -2,7 +2,7 @@
 import {deleteDoc, doc} from 'firebase/firestore'
 import Image from 'next/image'
 import {useRouter} from 'next/router'
-import React from 'react'
+import React, {useState} from 'react'
 import {RiDeleteBin2Line} from 'react-icons/ri'
 import useGetClothes from '../../hooks/clothes/useGetClothes'
 import {db} from '../../lib/firebase'
@@ -13,9 +13,12 @@ type Props = {
 }
 
 const ClothesCard = ({imageUrl, id}: Props) => {
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const handleDelete = async () => {
+    setLoading(true)
     await deleteDoc(doc(db, 'clothes', id))
+    setLoading(false)
     router.reload()
   }
   // console.log('id', id)
@@ -30,9 +33,15 @@ const ClothesCard = ({imageUrl, id}: Props) => {
       />
       <div className='bg-indigo-main rounded-b-md'>
         <div className='py-2 text-lg flex justify-center text-red-main'>
-          <button onClick={() => handleDelete()}>
-            <RiDeleteBin2Line />
-          </button>
+          {loading ? (
+            <button type='button' disabled>
+              <RiDeleteBin2Line />
+            </button>
+          ) : (
+            <button onClick={() => handleDelete()}>
+              <RiDeleteBin2Line />
+            </button>
+          )}
         </div>
       </div>
     </div>
